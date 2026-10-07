@@ -30,7 +30,7 @@ canvas{display:block;position:fixed;inset:0}
 #arr{position:absolute;width:0;height:0;margin:-14px 0 0 -14px;display:none;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:26px solid var(--c2);filter:drop-shadow(0 0 8px var(--c2))}
 #msg{position:absolute;bottom:22px;width:100%;text-align:center;font-size:10px;letter-spacing:4px;color:var(--c2);text-shadow:0 0 8px var(--c2);animation:bl 1.6s infinite}
 @keyframes bl{50%{opacity:.35}}
-.yt-frame{border:2px solid var(--c1);box-shadow:0 0 15px rgba(0,240,255,.5);border-radius:8px;background:#000}
+.yt-frame{border:2px solid var(--c1);box-shadow:0 0 18px rgba(0,240,255,.6);border-radius:8px;background:#000;overflow:hidden}
 </style>
 </head>
 <body>
@@ -46,8 +46,10 @@ canvas{display:block;position:fixed;inset:0}
   <div id="arr"></div>
   <div id="msg"></div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS3DRenderer.js"></script>
+
 <script>
 const $=id=>document.getElementById(id);
 const scene=new THREE.Scene();
@@ -56,7 +58,8 @@ const cam=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,.05,300);
 cam.position.set(0,0,0);
 
 const renderer=new THREE.WebGLRenderer({antialias:true});
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setSize(innerWidth,innerHeight);
 document.body.prepend(renderer.domElement);
 
 const cssRenderer=new THREE.CSS3DRenderer();
@@ -85,7 +88,7 @@ for(let i=0;i<10;i++){const a=i/10*6.283,r=16+Math.random()*8;
  const m=new THREE.Mesh(new THREE.IcosahedronGeometry(.5+Math.random()*1.2,0),new THREE.MeshBasicMaterial({color:i%2?0xff2bd6:0x00f0ff,wireframe:true}));
  m.position.set(Math.cos(a)*r,(Math.random()-.5)*14,Math.sin(a)*r);scene.add(m);deco.push(m);}
 
-// Pantallas 3D con YouTube Iframe
+// Función para crear e integrar pantallas de YouTube en 3D
 function addYTScreen(videoId, pos, rot, scale = 0.008) {
   const div = document.createElement('div');
   div.style.width = '640px';
@@ -96,7 +99,9 @@ function addYTScreen(videoId, pos, rot, scale = 0.008) {
   iframe.style.width = '100%';
   iframe.style.height = '100%';
   iframe.style.border = '0';
-  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0`;
+  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+  iframe.allowFullscreen = true;
+  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&enablejsapi=1`;
   div.appendChild(iframe);
 
   const cssObj = new THREE.CSS3DObject(div);
@@ -105,20 +110,20 @@ function addYTScreen(videoId, pos, rot, scale = 0.008) {
   cssObj.scale.setScalar(scale);
   cssScene.add(cssObj);
 
-  // Marco Neón en WebGL para dar volumen e integración en la escena
+  // Malla WebGL auxiliar para proyecciones visuales de profundidad
   const plane = new THREE.Mesh(
     new THREE.PlaneGeometry(640 * scale, 360 * scale),
-    new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, opacity: 0.3, transparent: true })
+    new THREE.MeshBasicMaterial({ color: 0x000000, opacity: 0.1, transparent: true })
   );
   plane.position.set(...pos);
   plane.rotation.set(...rot);
   scene.add(plane);
 }
 
-// Colocación estratégica de pantallas en el entorno 3D
-addYTScreen('c0V1N_ukJctbgjS6', [-8, 2, -10], [0, Math.PI / 6, 0]);
-addYTScreen('Ed1UcalZRJpvDr4T', [8, 3, -12], [0, -Math.PI / 5, 0]);
-addYTScreen('yXb5-menKOneYkkQ', [0, -4, -14], [-Math.PI / 8, 0, 0]);
+// Integración de tus tres vídeos en el entorno
+addYTScreen('ZDH3a4VXHXA', [-8, 2, -10], [0, Math.PI / 6, 0]);   // Pantalla Izquierda
+addYTScreen('j5eLr5IFdrQ', [8, 2.5, -11], [0, -Math.PI / 5, 0]);  // Pantalla Derecha (Comodoro Sad)
+addYTScreen('iC_NfxTKwZs', [0, -3.8, -13], [-Math.PI / 8, 0, 0]);  // Pantalla Inferior
 
 // Dron
 const drone=new THREE.Group();scene.add(drone);const rotors=[];

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DRON XR // Inmersivo</title>
+<title>DRON XR // Emanuel PB</title>
 <style>
 :root{--c1:#00f0ff;--c2:#ff2bd6;--bg:#03040d}
 html,body{height:100%;margin:0;background:var(--bg);overflow:hidden;font-family:'Orbitron','Segoe UI',system-ui,sans-serif;color:var(--c1);touch-action:none;-webkit-user-select:none;user-select:none}
@@ -14,8 +14,11 @@ canvas{display:block;position:fixed;inset:0}
 .panel{position:absolute;background:linear-gradient(135deg,rgba(0,240,255,.14),rgba(255,43,214,.09));border:1px solid rgba(0,240,255,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 0 22px rgba(0,240,255,.35),inset 0 0 16px rgba(0,240,255,.12);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));animation:fl 4s ease-in-out infinite}
 @keyframes fl{50%{transform:translateY(-6px)}}
 #title{top:14px;left:14px;padding:10px 18px}
-#title h1{margin:0;font-size:15px;letter-spacing:5px;text-shadow:0 0 12px var(--c1)}
-#title small{color:var(--c2);letter-spacing:3px;font-size:9px}
+#title h1{margin:0;font-size:16px;letter-spacing:5px;text-shadow:0 0 12px var(--c1)}
+#title small{color:var(--c2);letter-spacing:4px;font-size:10px;font-weight:bold}
+#contact{bottom:20px;left:14px;padding:8px 14px;font-size:10px;letter-spacing:2px;animation-delay:-1s}
+#contact div{color:var(--c2);font-size:8px;letter-spacing:3px;margin-bottom:2px}
+#contact b{color:#fff;text-shadow:0 0 8px var(--c1)}
 #tel{top:14px;right:14px;padding:10px 14px;min-width:130px;font-size:10px;letter-spacing:2px;animation-delay:-2s}
 #tel div{display:flex;justify-content:space-between;gap:12px;margin:3px 0}#tel b{color:#fff}
 .bar{height:4px;background:rgba(255,255,255,.12)}.bar i{display:block;height:100%;width:80%;background:linear-gradient(90deg,var(--c2),var(--c1));box-shadow:0 0 8px var(--c1)}
@@ -30,13 +33,14 @@ canvas{display:block;position:fixed;inset:0}
 #arr{position:absolute;width:0;height:0;margin:-14px 0 0 -14px;display:none;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:26px solid var(--c2);filter:drop-shadow(0 0 8px var(--c2))}
 #msg{position:absolute;bottom:22px;width:100%;text-align:center;font-size:10px;letter-spacing:4px;color:var(--c2);text-shadow:0 0 8px var(--c2);animation:bl 1.6s infinite}
 @keyframes bl{50%{opacity:.35}}
-.yt-frame{border:2px solid var(--c1);box-shadow:0 0 18px rgba(0,240,255,.6);border-radius:8px;background:#000;overflow:hidden}
+.yt-frame{border:2px solid var(--c1);box-shadow:0 0 20px rgba(0,240,255,.6);border-radius:10px;background:#000;overflow:hidden}
 </style>
 </head>
 <body>
 <div id="css-container"></div>
 <div id="ui">
-  <div class="panel" id="title"><h1>DRON//XR</h1><small>SISTEMA DE VUELO ONLINE</small></div>
+  <div class="panel" id="title"><h1>Emanuel PB</h1><small>VIDEOS</small></div>
+  <div class="panel" id="contact"><div>CONTACTO</div><b>emanuelpb500@gmail.com</b></div>
   <div class="panel" id="tel">
     <div>ALT <b id="alt">0</b>m</div><div>VEL <b id="spd">0</b>km/h</div><div>RUMBO <b id="hdg">0</b>°</div>
     <div>BAT <b id="bat">100</b>%</div><div class="bar"><i id="bar"></i></div>
@@ -80,16 +84,19 @@ function pts(n,rMin,rMax,color,size){const a=[];for(let i=0;i<n;i++){const u=Mat
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(a,3));const p=new THREE.Points(g,new THREE.PointsMaterial({color,size,sizeAttenuation:true}));scene.add(p);return p;}
 const st1=pts(1400,25,120,0xcffcff,.25),st2=pts(250,6,25,0xff2bd6,.09),st3=pts(250,6,25,0x00f0ff,.09);
 
-// Estructuras flotantes neón
+// Estructuras flotantes neón (Ajustadas en radio y posición para no tapar los videos)
 const deco=[];
 function ring(r,col,pos,rot){const m=new THREE.Mesh(new THREE.TorusGeometry(r,.03,8,100),new THREE.MeshBasicMaterial({color:col}));m.position.set(...pos);m.rotation.set(...rot);scene.add(m);deco.push(m);return m;}
-ring(9,0x00f0ff,[0,0,0],[Math.PI/2,0,0]);ring(11,0xff2bd6,[0,3,0],[Math.PI/2.2,.2,0]);ring(14,0x00f0ff,[0,-3,0],[Math.PI/1.8,0,.3]);
-for(let i=0;i<10;i++){const a=i/10*6.283,r=16+Math.random()*8;
+ring(18,0x00f0ff,[0,0,-5],[Math.PI/2,0,0]);
+ring(22,0xff2bd6,[0,6,-5],[Math.PI/2.2,.2,0]);
+ring(26,0x00f0ff,[0,-6,-5],[Math.PI/1.8,0,.3]);
+
+for(let i=0;i<10;i++){const a=i/10*6.283,r=22+Math.random()*8;
  const m=new THREE.Mesh(new THREE.IcosahedronGeometry(.5+Math.random()*1.2,0),new THREE.MeshBasicMaterial({color:i%2?0xff2bd6:0x00f0ff,wireframe:true}));
- m.position.set(Math.cos(a)*r,(Math.random()-.5)*14,Math.sin(a)*r);scene.add(m);deco.push(m);}
+ m.position.set(Math.cos(a)*r,(Math.random()-.5)*18,Math.sin(a)*r);scene.add(m);deco.push(m);}
 
 // Función para crear e integrar pantallas de YouTube en 3D
-function addYTScreen(videoId, pos, rot, scale = 0.008) {
+function addYTScreen(videoId, pos, rot, scale = 0.013) {
   const div = document.createElement('div');
   div.style.width = '640px';
   div.style.height = '360px';
@@ -110,7 +117,7 @@ function addYTScreen(videoId, pos, rot, scale = 0.008) {
   cssObj.scale.setScalar(scale);
   cssScene.add(cssObj);
 
-  // Malla WebGL auxiliar para proyecciones visuales de profundidad
+  // Malla WebGL auxiliar para profundidad
   const plane = new THREE.Mesh(
     new THREE.PlaneGeometry(640 * scale, 360 * scale),
     new THREE.MeshBasicMaterial({ color: 0x000000, opacity: 0.1, transparent: true })
@@ -120,10 +127,10 @@ function addYTScreen(videoId, pos, rot, scale = 0.008) {
   scene.add(plane);
 }
 
-// Integración de tus tres vídeos en el entorno
-addYTScreen('ZDH3a4VXHXA', [-8, 2, -10], [0, Math.PI / 6, 0]);   // Pantalla Izquierda
-addYTScreen('j5eLr5IFdrQ', [8, 2.5, -11], [0, -Math.PI / 5, 0]);  // Pantalla Derecha (Comodoro Sad)
-addYTScreen('iC_NfxTKwZs', [0, -3.8, -13], [-Math.PI / 8, 0, 0]);  // Pantalla Inferior
+// Videos alejados (-18 a -22 en Z) y más grandes (scale = 0.014)
+addYTScreen('ZDH3a4VXHXA', [-12, 3, -18], [0, Math.PI / 5, 0], 0.014);   // Pantalla Izquierda
+addYTScreen('j5eLr5IFdrQ', [12, 3.5, -19], [0, -Math.PI / 5, 0], 0.014); // Pantalla Derecha
+addYTScreen('iC_NfxTKwZs', [0, -5.5, -22], [-Math.PI / 9, 0, 0], 0.015); // Pantalla Inferior Central
 
 // Dron
 const drone=new THREE.Group();scene.add(drone);const rotors=[];

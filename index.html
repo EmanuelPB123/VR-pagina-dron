@@ -3,29 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DRON XR // Interfaz Futurista</title>
+<title>DRON XR // Inmersivo</title>
 <style>
-:root{--c1:#00f0ff;--c2:#ff2bd6;--bg:#03040d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-html,body{height:100%;margin:0;background:var(--bg);overflow:hidden;font-family:'Orbitron','Segoe UI',system-ui,sans-serif;color:var(--c1)}
-canvas{display:block}
+:root{--c1:#00f0ff;--c2:#ff2bd6;--bg:#03040d}
+html,body{height:100%;margin:0;background:var(--bg);overflow:hidden;font-family:'Orbitron','Segoe UI',system-ui,sans-serif;color:var(--c1);touch-action:none;-webkit-user-select:none;user-select:none}
+canvas{display:block;position:fixed;inset:0}
 #ui{position:fixed;inset:0;pointer-events:none;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
-.panel{position:absolute;pointer-events:auto;background:linear-gradient(135deg,rgba(0,240,255,.12),rgba(255,43,214,.08));border:1px solid rgba(0,240,255,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 0 24px rgba(0,240,255,.35),inset 0 0 18px rgba(0,240,255,.12);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));animation:float 4s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-8px)}}
-#title{top:16px;left:16px;padding:12px 22px}
-#title h1{margin:0;font-size:18px;letter-spacing:6px;text-shadow:0 0 12px var(--c1)}
-#title small{color:var(--c2);letter-spacing:3px;font-size:10px}
-#ctrl{bottom:16px;left:50%;margin-left:-150px;width:300px;padding:14px;display:flex;flex-direction:column;gap:8px;animation-delay:-1.5s}
-button,label.btn{font:inherit;font-size:12px;letter-spacing:3px;color:var(--c1);background:rgba(0,240,255,.08);border:1px solid var(--c1);padding:10px;cursor:pointer;text-align:center;transition:.2s;text-transform:uppercase}
-button:hover,label.btn:hover{background:var(--c1);color:#000;box-shadow:0 0 20px var(--c1)}
-button.m{border-color:var(--c2);color:var(--c2)}button.m:hover{background:var(--c2);box-shadow:0 0 20px var(--c2);color:#000}
-button:disabled{opacity:.35;pointer-events:none}
-#tel{top:16px;right:16px;padding:12px 18px;min-width:150px;font-size:11px;letter-spacing:2px;animation-delay:-3s}
-#tel div{display:flex;justify-content:space-between;gap:16px;margin:4px 0}#tel b{color:#fff}
-.bar{height:5px;background:rgba(255,255,255,.12);margin-top:6px}.bar i{display:block;height:100%;width:80%;background:linear-gradient(90deg,var(--c2),var(--c1));box-shadow:0 0 8px var(--c1)}
-#msg{position:absolute;bottom:230px;width:100%;text-align:center;font-size:11px;letter-spacing:3px;color:var(--c2);text-shadow:0 0 8px var(--c2)}
-@media(max-width:600px){#tel{top:auto;bottom:210px;right:8px;font-size:10px;padding:8px 10px;min-width:0}#title h1{font-size:14px}}
-#ui.xr{display:none}
+.panel{position:absolute;background:linear-gradient(135deg,rgba(0,240,255,.14),rgba(255,43,214,.09));border:1px solid rgba(0,240,255,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 0 22px rgba(0,240,255,.35),inset 0 0 16px rgba(0,240,255,.12);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));animation:fl 4s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-6px)}}
+#title{top:14px;left:14px;padding:10px 18px}
+#title h1{margin:0;font-size:15px;letter-spacing:5px;text-shadow:0 0 12px var(--c1)}
+#title small{color:var(--c2);letter-spacing:3px;font-size:9px}
+#tel{top:14px;right:14px;padding:10px 14px;min-width:130px;font-size:10px;letter-spacing:2px;animation-delay:-2s}
+#tel div{display:flex;justify-content:space-between;gap:12px;margin:3px 0}#tel b{color:#fff}
+.bar{height:4px;background:rgba(255,255,255,.12)}.bar i{display:block;height:100%;width:80%;background:linear-gradient(90deg,var(--c2),var(--c1));box-shadow:0 0 8px var(--c1)}
+#ret{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border:1px solid rgba(0,240,255,.5);border-radius:50%}
+#ret:before,#ret:after{content:"";position:absolute;background:var(--c1);box-shadow:0 0 6px var(--c1)}
+#ret:before{left:50%;top:-8px;width:1px;height:62px}#ret:after{top:50%;left:-8px;height:1px;width:62px}
+#brk{position:absolute;width:70px;height:70px;margin:-35px 0 0 -35px;display:none;color:var(--c2);filter:drop-shadow(0 0 6px var(--c2))}
+#brk i{position:absolute;width:16px;height:16px;border:2px solid currentColor}
+#brk i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0}#brk i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0}
+#brk i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0}#brk i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0}
+#brk span{position:absolute;top:76px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:3px;white-space:nowrap}
+#arr{position:absolute;width:0;height:0;margin:-14px 0 0 -14px;display:none;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:26px solid var(--c2);filter:drop-shadow(0 0 8px var(--c2))}
+#msg{position:absolute;bottom:22px;width:100%;text-align:center;font-size:10px;letter-spacing:4px;color:var(--c2);text-shadow:0 0 8px var(--c2);animation:bl 1.6s infinite}
+@keyframes bl{50%{opacity:.35}}
 </style>
 </head>
 <body>
@@ -33,160 +35,142 @@ button:disabled{opacity:.35;pointer-events:none}
   <div class="panel" id="title"><h1>DRON//XR</h1><small>SISTEMA DE VUELO ONLINE</small></div>
   <div class="panel" id="tel">
     <div>ALT <b id="alt">0</b>m</div><div>VEL <b id="spd">0</b>km/h</div><div>RUMBO <b id="hdg">0</b>°</div>
-    <div>BATERÍA <b id="bat">100</b>%</div><div class="bar"><i id="bar"></i></div>
+    <div>BAT <b id="bat">100</b>%</div><div class="bar"><i id="bar"></i></div>
   </div>
-  <div class="panel" id="ctrl">
-    <button id="vr" disabled>Entrar a VR</button>
-    <button id="ar" class="m" disabled>Entrar a AR</button>
-    <label class="btn">Cargar modelo .glb<input id="file" type="file" accept=".glb,.gltf" hidden></label>
-  </div>
-  <div id="msg">ARRASTRÁ PARA ORBITAR · RUEDA PARA ZOOM</div>
+  <div id="ret"></div>
+  <div id="brk"><i></i><i></i><i></i><i></i><span>OBJETIVO FIJADO</span></div>
+  <div id="arr"></div>
+  <div id="msg"></div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const scene=new THREE.Scene();
-scene.background=new THREE.Color(0x03040d);
-scene.fog=new THREE.FogExp2(0x03040d,.035);
-const cam=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.05,200);
-const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-renderer.setSize(innerWidth,innerHeight);
-renderer.xr.enabled=true;
+const cam=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,.05,300);
+cam.position.set(0,0,0);
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);
 document.body.prepend(renderer.domElement);
 
-scene.add(new THREE.HemisphereLight(0x88ccff,0x220033,.9));
-const key=new THREE.PointLight(0x00f0ff,2,30);key.position.set(0,6,0);scene.add(key);
-const mag=new THREE.PointLight(0xff2bd6,1.5,30);mag.position.set(-5,2,5);scene.add(mag);
+// Fondo: cúpula con degradado y brillos
+const sky=new THREE.Mesh(new THREE.SphereGeometry(150,32,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,
+ vertexShader:'varying vec3 p;void main(){p=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+ fragmentShader:'varying vec3 p;void main(){float h=p.y*.5+.5;vec3 c=mix(vec3(.01,.01,.05),vec3(.02,.03,.12),h);c+=vec3(.0,.35,.45)*pow(max(0.,1.-abs(p.y)*3.),3.)*.5;c+=vec3(.6,.05,.5)*pow(max(0.,dot(p,normalize(vec3(-1.,.2,-.6)))),12.)*.5;c+=vec3(.0,.5,.6)*pow(max(0.,dot(p,normalize(vec3(1.,-.1,.5)))),12.)*.4;gl_FragColor=vec4(c,1.);}'}));
+scene.add(sky);
+scene.add(new THREE.HemisphereLight(0x88ccff,0x330044,1));
+const key=new THREE.PointLight(0x00f0ff,2.5,25);scene.add(key);
+const mg=new THREE.PointLight(0xff2bd6,1.5,30);mg.position.set(-6,2,-6);scene.add(mg);
 
-// Entorno (se oculta en AR)
-const env=new THREE.Group();scene.add(env);
-const grid=new THREE.GridHelper(60,60,0x00f0ff,0x1a2a6a);grid.material.transparent=true;grid.material.opacity=.5;env.add(grid);
-for(let i=0;i<4;i++){const r=new THREE.Mesh(new THREE.TorusGeometry(2+i*1.6,.02,8,96),new THREE.MeshBasicMaterial({color:i%2?0xff2bd6:0x00f0ff}));r.rotation.x=Math.PI/2;r.position.y=.02+i*.01;env.add(r);}
-const pg=new THREE.BufferGeometry(),pp=[];for(let i=0;i<500;i++)pp.push((Math.random()-.5)*50,Math.random()*15,(Math.random()-.5)*50);
-pg.setAttribute('position',new THREE.Float32BufferAttribute(pp,3));
-const stars=new THREE.Points(pg,new THREE.PointsMaterial({color:0x66f6ff,size:.06}));env.add(stars);
+// Estrellas en todas direcciones
+function pts(n,rMin,rMax,color,size){const a=[];for(let i=0;i<n;i++){const u=Math.random()*2-1,th=Math.random()*6.283,s=Math.sqrt(1-u*u),r=rMin+Math.random()*(rMax-rMin);a.push(r*s*Math.cos(th),r*u,r*s*Math.sin(th));}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(a,3));const p=new THREE.Points(g,new THREE.PointsMaterial({color,size,sizeAttenuation:true}));scene.add(p);return p;}
+const st1=pts(1400,25,120,0xcffcff,.25),st2=pts(250,6,25,0xff2bd6,.09),st3=pts(250,6,25,0x00f0ff,.09);
 
-// Dron procedural
-const drone=new THREE.Group();scene.add(drone);
-let model=new THREE.Group();drone.add(model);
-const rotors=[];
-function buildDrone(){
-  const g=new THREE.Group();
-  const dark=new THREE.MeshStandardMaterial({color:0x151a2e,metalness:.8,roughness:.3});
-  const glow=new THREE.MeshBasicMaterial({color:0x00f0ff});
-  const body=new THREE.Mesh(new THREE.BoxGeometry(.5,.14,.5),dark);g.add(body);
-  const eye=new THREE.Mesh(new THREE.SphereGeometry(.07,16,16),new THREE.MeshBasicMaterial({color:0xff2bd6}));eye.position.set(0,-.05,.27);g.add(eye);
-  [[1,1],[-1,1],[1,-1],[-1,-1]].forEach(([x,z],i)=>{
-    const arm=new THREE.Mesh(new THREE.BoxGeometry(.7,.04,.05),dark);arm.position.set(x*.3,0,z*.3);arm.rotation.y=Math.atan2(-z,x)*1;g.add(arm);
-    const motor=new THREE.Mesh(new THREE.CylinderGeometry(.06,.06,.08,16),dark);motor.position.set(x*.55,.04,z*.55);g.add(motor);
-    const ring=new THREE.Mesh(new THREE.TorusGeometry(.2,.012,8,32),glow);ring.rotation.x=Math.PI/2;ring.position.set(x*.55,.09,z*.55);g.add(ring);
-    const rot=new THREE.Mesh(new THREE.BoxGeometry(.4,.008,.04),new THREE.MeshBasicMaterial({color:0xbffaff,transparent:true,opacity:.7}));
-    rot.position.set(x*.55,.1,z*.55);g.add(rot);rotors.push(rot);
-  });
-  const halo=new THREE.Mesh(new THREE.ConeGeometry(.45,1.4,32,1,true),new THREE.MeshBasicMaterial({color:0x00f0ff,transparent:true,opacity:.12,side:THREE.DoubleSide,depthWrite:false}));
-  halo.position.y=-.75;g.add(halo);
-  g.scale.setScalar(1.3);
-  return g;
-}
-drone.remove(model);model=buildDrone();drone.add(model);
+// Estructuras flotantes neón
+const deco=[];
+function ring(r,col,pos,rot){const m=new THREE.Mesh(new THREE.TorusGeometry(r,.03,8,100),new THREE.MeshBasicMaterial({color:col}));m.position.set(...pos);m.rotation.set(...rot);scene.add(m);deco.push(m);return m;}
+ring(9,0x00f0ff,[0,0,0],[Math.PI/2,0,0]);ring(11,0xff2bd6,[0,3,0],[Math.PI/2.2,.2,0]);ring(14,0x00f0ff,[0,-3,0],[Math.PI/1.8,0,.3]);
+for(let i=0;i<10;i++){const a=i/10*6.283,r=16+Math.random()*8;
+ const m=new THREE.Mesh(new THREE.IcosahedronGeometry(.5+Math.random()*1.2,0),new THREE.MeshBasicMaterial({color:i%2?0xff2bd6:0x00f0ff,wireframe:true}));
+ m.position.set(Math.cos(a)*r,(Math.random()-.5)*14,Math.sin(a)*r);scene.add(m);deco.push(m);}
 
-// HUD flotante en 3D (visible en VR/AR)
-const hc=document.createElement('canvas');hc.width=512;hc.height=320;
-const hx=hc.getContext('2d'),htex=new THREE.CanvasTexture(hc);
-const hud=new THREE.Mesh(new THREE.PlaneGeometry(1.6,1),new THREE.MeshBasicMaterial({map:htex,transparent:true,side:THREE.DoubleSide}));
-scene.add(hud);
+// Dron
+const drone=new THREE.Group();scene.add(drone);const rotors=[];
+(function(){
+ const g=new THREE.Group(),dark=new THREE.MeshStandardMaterial({color:0x151a2e,metalness:.8,roughness:.3}),glow=new THREE.MeshBasicMaterial({color:0x00f0ff});
+ g.add(new THREE.Mesh(new THREE.BoxGeometry(.5,.14,.5),dark));
+ const eye=new THREE.Mesh(new THREE.SphereGeometry(.07,16,16),new THREE.MeshBasicMaterial({color:0xff2bd6}));eye.position.set(0,-.05,.27);g.add(eye);
+ [[1,1],[-1,1],[1,-1],[-1,-1]].forEach(([x,z])=>{
+  const arm=new THREE.Mesh(new THREE.BoxGeometry(.7,.04,.05),dark);arm.position.set(x*.3,0,z*.3);arm.rotation.y=Math.atan2(-z,x);g.add(arm);
+  const mo=new THREE.Mesh(new THREE.CylinderGeometry(.06,.06,.08,16),dark);mo.position.set(x*.55,.04,z*.55);g.add(mo);
+  const rg=new THREE.Mesh(new THREE.TorusGeometry(.2,.012,8,32),glow);rg.rotation.x=Math.PI/2;rg.position.set(x*.55,.09,z*.55);g.add(rg);
+  const ro=new THREE.Mesh(new THREE.BoxGeometry(.4,.008,.04),new THREE.MeshBasicMaterial({color:0xbffaff,transparent:true,opacity:.7}));ro.position.set(x*.55,.1,z*.55);g.add(ro);rotors.push(ro);});
+ const halo=new THREE.Mesh(new THREE.ConeGeometry(.45,1.4,32,1,true),new THREE.MeshBasicMaterial({color:0x00f0ff,transparent:true,opacity:.12,side:THREE.DoubleSide,depthWrite:false}));halo.position.y=-.75;g.add(halo);
+ g.scale.setScalar(1.8);drone.add(g);})();
+
+// Estela
+const TN=80,trail=[],tg=new THREE.BufferGeometry();
+tg.setAttribute('position',new THREE.Float32BufferAttribute(new Float32Array(TN*3),3));
+const tl=new THREE.Line(tg,new THREE.LineBasicMaterial({color:0xff2bd6,transparent:true,opacity:.7}));tl.frustumCulled=false;scene.add(tl);
+
+// Paneles HUD holográficos en 3D
+function mkHud(w,h){const c=document.createElement('canvas');c.width=512;c.height=Math.round(512*h/w);const t=new THREE.CanvasTexture(c);
+ const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:t,transparent:true,side:THREE.DoubleSide,depthWrite:false}));scene.add(m);return{c,x:c.getContext('2d'),t,m};}
+const hudD=mkHud(1.7,1.06),hudA=mkHud(2.4,1.5),hudB=mkHud(2.4,1.5);
+hudA.m.position.set(-7,1.2,-3);hudB.m.position.set(6,.6,-5);hudA.m.lookAt(0,0,0);hudB.m.lookAt(0,0,0);
+function frame(H,title,col){const x=H.x,w=H.c.width,h=H.c.height;x.clearRect(0,0,w,h);x.fillStyle='rgba(3,10,30,.55)';x.fillRect(0,0,w,h);
+ x.shadowColor=col;x.shadowBlur=14;x.strokeStyle=col;x.lineWidth=3;x.strokeRect(6,6,w-12,h-12);x.fillStyle=col;x.font='bold 22px monospace';x.fillText(title,20,34);x.shadowBlur=6;}
 let T={alt:0,spd:0,hdg:0,bat:100};
-function drawHud(t){
-  hx.clearRect(0,0,512,320);
-  hx.fillStyle='rgba(3,10,30,.55)';hx.fillRect(0,0,512,320);
-  hx.strokeStyle='#00f0ff';hx.lineWidth=3;hx.shadowColor='#00f0ff';hx.shadowBlur=14;
-  hx.strokeRect(6,6,500,308);
-  hx.strokeStyle='#ff2bd6';hx.beginPath();hx.moveTo(6,40);hx.lineTo(120,40);hx.stroke();
-  hx.shadowBlur=8;hx.fillStyle='#00f0ff';hx.font='bold 22px monospace';hx.fillText('DRON//XR  TELEMETRÍA',20,32);
-  hx.font='20px monospace';
-  [['ALTITUD',T.alt.toFixed(1)+' m'],['VELOCIDAD',T.spd.toFixed(0)+' km/h'],['RUMBO',T.hdg.toFixed(0)+'°'],['BATERÍA',T.bat.toFixed(0)+' %']].forEach((r,i)=>{
-    hx.fillStyle='#00f0ff';hx.fillText(r[0],24,86+i*44);hx.fillStyle='#fff';hx.textAlign='right';hx.fillText(r[1],488,86+i*44);hx.textAlign='left';});
-  hx.fillStyle='#ff2bd6';hx.fillRect(24,262,464*T.bat/100,10);
-  hx.beginPath();hx.arc(444,50,12,0,6.28);hx.fillStyle=Math.sin(t*6)>0?'#ff2bd6':'#400a38';hx.fill();
-  htex.needsUpdate=true;
+function drawAll(t){
+ let H=hudD,x=H.x;frame(H,'TELEMETRÍA','#00f0ff');x.font='20px monospace';
+ [['ALTITUD',T.alt.toFixed(1)+' m'],['VELOCIDAD',T.spd.toFixed(0)+' km/h'],['RUMBO',T.hdg.toFixed(0)+'°'],['BATERÍA',T.bat.toFixed(0)+' %']].forEach((r,i)=>{x.fillStyle='#00f0ff';x.textAlign='left';x.fillText(r[0],24,86+i*44);x.fillStyle='#fff';x.textAlign='right';x.fillText(r[1],488,86+i*44);});
+ x.textAlign='left';x.fillStyle='#ff2bd6';x.fillRect(24,262,464*T.bat/100,10);H.t.needsUpdate=true;
+ H=hudA;x=H.x;frame(H,'RADAR','#ff2bd6');const cx=256,cy=190,R=130;x.strokeStyle='#ff2bd6';x.lineWidth=1.5;
+ [1,.66,.33].forEach(k=>{x.beginPath();x.arc(cx,cy,R*k,0,6.28);x.stroke();});x.beginPath();x.moveTo(cx-R,cy);x.lineTo(cx+R,cy);x.moveTo(cx,cy-R);x.lineTo(cx,cy+R);x.stroke();
+ const sw=t*2;x.strokeStyle='#00f0ff';x.lineWidth=2;x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+Math.cos(sw)*R,cy+Math.sin(sw)*R);x.stroke();
+ x.fillStyle='#fff';x.beginPath();x.arc(cx+drone.position.x/9*R,cy+drone.position.z/9*R,6,0,6.28);x.fill();H.t.needsUpdate=true;
+ H=hudB;x=H.x;frame(H,'SEÑAL / ENERGÍA','#00f0ff');x.strokeStyle='#00f0ff';x.lineWidth=2;x.beginPath();
+ for(let i=0;i<460;i+=4){const y=190+Math.sin(i*.04+t*4)*40*Math.sin(i*.007+t)+Math.sin(i*.15+t*9)*8;i?x.lineTo(26+i,y):x.moveTo(26+i,y);}x.stroke();
+ x.fillStyle='#fff';x.font='18px monospace';x.fillText('LINK  '+(97+Math.sin(t)*2).toFixed(0)+'%   GPS 14 SAT',24,300);H.t.needsUpdate=true;
 }
 
-// Cargar .glb propio
-$('file').onchange=e=>{
-  const f=e.target.files[0];if(!f)return;
-  const url=URL.createObjectURL(f);
-  new THREE.GLTFLoader().load(url,gl=>{
-    drone.remove(model);rotors.length=0;
-    model=gl.scene;
-    const box=new THREE.Box3().setFromObject(model),s=box.getSize(new THREE.Vector3());
-    model.scale.setScalar(1.2/Math.max(s.x,s.y,s.z));
-    const c=new THREE.Box3().setFromObject(model).getCenter(new THREE.Vector3());model.position.sub(c);
-    drone.add(model);$('msg').textContent='MODELO CARGADO: '+f.name.toUpperCase();
-  },undefined,()=>{$('msg').textContent='ERROR AL CARGAR EL ARCHIVO';});
-};
+// Sensores del celular (giroscopio)
+let gyro=false,a0=null,tq=new THREE.Quaternion(),yaw=0,pitch=0;
+const q1=new THREE.Quaternion(-Math.sqrt(.5),0,0,Math.sqrt(.5)),zee=new THREE.Vector3(0,0,1),eu=new THREE.Euler(),q0=new THREE.Quaternion();
+function onOri(e){
+ if(e.alpha==null||e.beta==null)return;
+ if(a0===null)a0=e.alpha;gyro=true;
+ const D=Math.PI/180,o=((screen.orientation&&screen.orientation.angle)||window.orientation||0)*D;
+ eu.set(e.beta*D,(e.alpha-a0)*D,-e.gamma*D,'YXZ');tq.setFromEuler(eu);tq.multiply(q1);tq.multiply(q0.setFromAxisAngle(zee,-o));
+ $('msg').textContent='';
+}
+function startSensors(){
+ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){
+  DeviceOrientationEvent.requestPermission().then(r=>{if(r==='granted')addEventListener('deviceorientation',onOri,true);}).catch(()=>{});
+ }else addEventListener('deviceorientation',onOri,true);
+}
+const isTouch=matchMedia('(pointer:coarse)').matches;
+const needTap=typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function';
+if(isTouch){ if(needTap){$('msg').textContent='TOCÁ LA PANTALLA PARA ACTIVAR LOS SENSORES';addEventListener('touchend',function f(){startSensors();removeEventListener('touchend',f);},{once:true});}
+ else{startSensors();$('msg').textContent='MOVÉ EL CELULAR PARA MIRAR ALREDEDOR';setTimeout(()=>{if(gyro)$('msg').textContent=''},4000);} }
+else $('msg').textContent='ARRASTRÁ PARA MIRAR ALREDEDOR';
 
-// Órbita manual
-let az=.6,el=.35,dist=9,drag=false,px=0,py=0;
-const cv=renderer.domElement;
-cv.onpointerdown=e=>{drag=true;px=e.clientX;py=e.clientY};
+// Arrastre (PC o si no hay giroscopio)
+let drag=false,px=0,py=0;
+addEventListener('pointerdown',e=>{drag=true;px=e.clientX;py=e.clientY});
 addEventListener('pointerup',()=>drag=false);
-addEventListener('pointermove',e=>{if(!drag)return;az-=(e.clientX-px)*.006;el=Math.max(.05,Math.min(1.4,el+(e.clientY-py)*.005));px=e.clientX;py=e.clientY});
-cv.addEventListener('wheel',e=>{dist=Math.max(3,Math.min(25,dist+e.deltaY*.01))},{passive:true});
-
-// XR
-async function setupXR(){
-  if(!navigator.xr){$('msg').textContent='WEBXR NO DISPONIBLE EN ESTE NAVEGADOR';return;}
-  for(const [id,mode,opts] of [['vr','immersive-vr',{optionalFeatures:['local-floor']}],['ar','immersive-ar',{optionalFeatures:['local-floor']}]]){
-    try{
-      if(await navigator.xr.isSessionSupported(mode)){
-        const b=$(id);b.disabled=false;
-        b.onclick=async()=>{
-          const s=await navigator.xr.requestSession(mode,opts);
-          const ar=mode==='immersive-ar';
-          scene.background=ar?null:new THREE.Color(0x03040d);scene.fog=ar?null:scene.fog;env.visible=!ar;
-          renderer.xr.setReferenceSpaceType('local-floor');
-          await renderer.xr.setSession(s);$('ui').classList.add('xr');inXR=true;
-          s.addEventListener('end',()=>{inXR=false;env.visible=true;scene.background=new THREE.Color(0x03040d);scene.fog=new THREE.FogExp2(0x03040d,.035);$('ui').classList.remove('xr')});
-        };
-      }
-    }catch(e){}
-  }
-}
-setupXR();
-let inXR=false;
-
+addEventListener('pointermove',e=>{if(!drag||gyro)return;yaw-=(e.clientX-px)*.005;pitch=Math.max(-1.4,Math.min(1.4,pitch-(e.clientY-py)*.005));px=e.clientX;py=e.clientY;$('msg').textContent='';});
 addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
 
 // Loop
-const clock=new THREE.Clock();let last=new THREE.Vector3(),tt=0;
+const clock=new THREE.Clock(),last=new THREE.Vector3(),eul2=new THREE.Euler(0,0,0,'YXZ'),mq=new THREE.Quaternion();let tt=-1;
 renderer.setAnimationLoop(()=>{
-  const t=clock.getElapsedTime(),dt=clock.getDelta()||.016;
-  const R=4;
-  const x=Math.cos(t*.5)*R,z=Math.sin(t*.7)*R*.8,y=2.2+Math.sin(t*.9)*.6;
-  const p=new THREE.Vector3(x,y,z);
-  const v=p.clone().sub(last);last.copy(p);
-  drone.position.copy(p);
-  const look=new THREE.Vector3(-Math.sin(t*.5)*R*.5,0,Math.cos(t*.7)*R*.56);
-  drone.rotation.y=Math.atan2(look.x,look.z);
-  drone.rotation.z=-Math.sin(t*.5)*.25;drone.rotation.x=.12+Math.sin(t*.9)*.05;
-  rotors.forEach((r,i)=>r.rotation.y+=(i%2?1:-1)*1.2);
-  stars.rotation.y=t*.01;key.position.set(x,y+1,z);
-  // HUD flotando junto al dron
-  hud.position.set(x+1.3,y+1.1+Math.sin(t*2)*.05,z);
-  const target=inXR?renderer.xr.getCamera(cam).position:cam.position;
-  hud.lookAt(target);
-  if(!inXR){
-    cam.position.set(Math.sin(az)*Math.cos(el)*dist,1.5+Math.sin(el)*dist,Math.cos(az)*Math.cos(el)*dist);
-    cam.lookAt(0,2,0);
-  }
-  T.alt=y*3;T.spd=v.length()*60*3.6*.4;T.hdg=((drone.rotation.y*180/Math.PI)%360+360)%360;T.bat=Math.max(5,100-(t*.15)%95);
-  if(Math.floor(t*10)!==tt){tt=Math.floor(t*10);
-    $('alt').textContent=T.alt.toFixed(1);$('spd').textContent=T.spd.toFixed(0);$('hdg').textContent=T.hdg.toFixed(0);$('bat').textContent=T.bat.toFixed(0);$('bar').style.width=T.bat+'%';
-    drawHud(t);}
-  renderer.render(scene,cam);
+ const t=clock.getElapsedTime(),a=t*.45;
+ const r=6+Math.sin(t*.6)*1.8,x=Math.cos(a)*r,z=Math.sin(a)*r,y=Math.sin(t*.8)*1.6+.3;
+ const p=new THREE.Vector3(x,y,z),v=p.clone().sub(last);last.copy(p);
+ drone.position.copy(p);drone.rotation.set(.12+Math.sin(t*.9)*.05,Math.atan2(-Math.sin(a),Math.cos(a))+0,-.25);
+ rotors.forEach((m,i)=>m.rotation.y+=(i%2?1:-1)*1.2);
+ key.position.set(x,y+1,z);
+ deco.forEach((m,i)=>{m.rotation.y+=.002*(i%3+1);m.rotation.x+=.001*(i%2+1);});
+ st2.rotation.y=t*.02;st3.rotation.y=-t*.015;
+ trail.unshift(p.x,p.y,p.z);if(trail.length>TN*3)trail.length=TN*3;
+ const arr=tg.attributes.position.array;for(let i=0;i<TN*3;i++)arr[i]=trail[i]!==undefined?trail[i]:trail[trail.length-3+(i%3)]||0;tg.attributes.position.needsUpdate=true;
+ hudD.m.position.set(x,y+1.4+Math.sin(t*2)*.06,z);hudD.m.lookAt(cam.position);
+ hudA.m.position.y=1.2+Math.sin(t*1.3)*.15;hudB.m.position.y=.6+Math.sin(t*1.1+1)*.15;
+ // cámara
+ if(gyro)cam.quaternion.slerp(tq,.35);else{eul2.set(pitch,yaw,0);mq.setFromEuler(eul2);cam.quaternion.slerp(mq,.3);}
+ cam.updateMatrixWorld();cam.matrixWorldInverse.copy(cam.matrixWorld).invert();
+ // seguidor de objetivo
+ const cp=p.clone().applyMatrix4(cam.matrixWorldInverse),sp=p.clone().project(cam),W=innerWidth,Hh=innerHeight;
+ const inside=cp.z<0&&Math.abs(sp.x)<.85&&Math.abs(sp.y)<.85;
+ $('brk').style.display=inside?'block':'none';$('arr').style.display=inside?'none':'block';
+ if(inside){$('brk').style.left=(sp.x*.5+.5)*W+'px';$('brk').style.top=(-sp.y*.5+.5)*Hh+'px';}
+ else{const ang=Math.atan2(cp.y,cp.x),rx=W*.42,ry=Hh*.38,ax=W/2+Math.cos(ang)*rx,ay=Hh/2-Math.sin(ang)*ry;
+  $('arr').style.left=ax+'px';$('arr').style.top=ay+'px';$('arr').style.transform='rotate('+(90-ang*180/Math.PI)+'deg)';}
+ // datos
+ T.alt=(y+3)*4;T.spd=v.length()*60*3.6*.5;T.hdg=((Math.atan2(x,-z)*180/Math.PI)%360+360)%360;T.bat=Math.max(5,100-(t*.15)%95);
+ const k=Math.floor(t*10);if(k!==tt){tt=k;$('alt').textContent=T.alt.toFixed(1);$('spd').textContent=T.spd.toFixed(0);$('hdg').textContent=T.hdg.toFixed(0);$('bat').textContent=T.bat.toFixed(0);$('bar').style.width=T.bat+'%';drawAll(t);}
+ renderer.render(scene,cam);
 });
 </script>
 </body>
